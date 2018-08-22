@@ -8,7 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="BoDi" Version="1.4.0-alpha1" />
+    <PackageReference Include="FluentAssertions" Version="5.4.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+    <PackageReference Include="Selenium.Support" Version="3.14.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="3.14.0" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="2.41.0" />
     <PackageReference Include="SpecFlow" Version="3.0.55-beta-g937c8571f0" />
     <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.0.55-beta-g937c8571f0" />
     <PackageReference Include="SpecFlow.xUnit" Version="3.0.55-beta-g937c8571f0" />
@@ -21,25 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Drivers\" />
-    <Folder Include="Steps\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Features\Articles\Editing Articles.feature">
-      <Generator></Generator>
-    </None>
-    <None Update="Features\Articles\New Articles.feature">
-      <Generator></Generator>
-    </None>
-    <None Update="Features\Articles\Remove Articles.feature">
-      <Generator></Generator>
-    </None>
-    <None Update="Features\Cookie Message.feature">
-      <Generator></Generator>
-    </None>
-    <None Update="Features\Login.feature">
-      <Generator></Generator>
+    <None Update="specflow.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
