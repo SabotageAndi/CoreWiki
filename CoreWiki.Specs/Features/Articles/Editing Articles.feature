@@ -6,7 +6,7 @@ Background:
 	And an article 'SpecFlow Links' exists
 
 
-Scenario: Change the tile of an Article
+Scenario: Change the title of an Article
 
 	Given I open the article 'SpecFlow Links'
 

@@ -274,3 +274,4 @@ CoreWiki/wwwroot/lib/
 
 # Minified and generated files
 *.min.js
+*.feature.cs

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BoDi" Version="1.4.0-alpha1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+    <PackageReference Include="SpecFlow" Version="3.0.55-beta-g937c8571f0" />
+    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.0.55-beta-g937c8571f0" />
+    <PackageReference Include="SpecFlow.xUnit" Version="3.0.55-beta-g937c8571f0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0">
       <PrivateAssets>all</PrivateAssets>
@@ -17,7 +22,6 @@
 
   <ItemGroup>
     <Folder Include="Drivers\" />
-    <Folder Include="Support\" />
     <Folder Include="Steps\" />
   </ItemGroup>
 
