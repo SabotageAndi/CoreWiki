@@ -18,7 +18,7 @@ namespace CoreWiki.Specs.Steps
 		[When(@"I use valid credentials to login")]
 		public void WhenIUseValidCredentialsToLogin()
 		{
-			_loginDriver.LoginWithCredentials(LoginData.ValidCredentials);
+			_loginDriver.LoginWithCredentials(LoginData.ValidCredentialsAdmin);
 		}
 
 		[When(@"I use invalid credentials to login")]

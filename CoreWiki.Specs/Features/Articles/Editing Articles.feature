@@ -8,7 +8,7 @@ Background:
 
 Scenario: Change the title of an Article
 
-	Given I open the article 'SpecFlow Links'
+	Given I open the article 'SpecFlow Links' to edit it
 
 	When I edit the text
 		"""

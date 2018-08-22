@@ -13,18 +13,22 @@ namespace CoreWiki
     public class Program 
     {
         public static void Main(string[] args)
-        { 
-            BuildWebHost(args).Run();
+        {
+            var buildWebHost = BuildWebHost(args);
+            buildWebHost.Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+        public static IWebHost BuildWebHost(string[] args) => CreateWebHost(args).Build();
+
+        public static IWebHostBuilder CreateWebHost(string[] args)
+        {
+            return WebHost.CreateDefaultBuilder(args)
                 .UseApplicationInsights()
                 .UseStartup<Startup>()
                 .UseKestrel(options =>
                 {
                     options.AddServerHeader = false;
-                })
-                .Build();
+                });
+        }
     }
 }
