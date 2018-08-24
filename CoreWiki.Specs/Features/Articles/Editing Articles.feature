@@ -1,34 +1,29 @@
 ﻿Feature: Editing Articles
 
-
 Background:
 	Given I have the role 'Authors'
-	And an article 'SpecFlow Links' exists
 
+Scenario: Change the content of an Article
 
-Scenario: Change the text of an Article
-
-	Given I open the article 'SpecFlow Links' to edit it
-
-	When I edit the text
+	Given an article exists with the content:
 		"""
-		# Links
-
-		- SpecFlow Documentation - www.specflow.org/docs
+		# outdated Content
 		"""
+	And I open this article to edit it
+
+	When I change the content to
+		"""
+		# Heading 1
+		## Heading 2
+
+		Content
+		"""	
 	And save it
 
-	Then the new text is saved to the database
-
-
-Scenario: Link two articles
-
-	Given an article 'SpecFlow ToC' exists
-	And I open the article 'SpecFlow ToC' to edit it
-
-	When I edit the text
+	Then the new article has the content:
 		"""
-		(Links)[/wiki/SpecFlow%20Links]
-		"""
-	And save it
+		# Heading 1
+		## Heading 2
 
+		Content
+		"""
