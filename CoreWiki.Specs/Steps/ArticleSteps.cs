@@ -10,11 +10,13 @@ namespace CoreWiki.Specs.Steps
 	{
 		private readonly ArticleDriver _articleDriver;
 		private readonly CurrentArticleContext _currentArticleContext;
+		private readonly ArticleWebDriver _articleWebDriver;
 
-		public ArticleSteps(ArticleDriver articleDriver, CurrentArticleContext currentArticleContext)
+		public ArticleSteps(ArticleDriver articleDriver, CurrentArticleContext currentArticleContext, ArticleWebDriver articleWebDriver)
 		{
 			_articleDriver = articleDriver;
 			_currentArticleContext = currentArticleContext;
+			_articleWebDriver = articleWebDriver;
 		}
 
 		[Given(@"an article '(.*)' exists")]
@@ -36,7 +38,7 @@ namespace CoreWiki.Specs.Steps
 		[Given(@"an article with the topic '(.*)' was created")]
 		public void GivenAnArticleWithTheTopicWasCreated(string topic)
 		{
-			_articleDriver.CreateArticleViaWeb(topic);
+			_articleWebDriver.CreateArticleViaWeb(topic);
 			_currentArticleContext.ArticleTopic = topic;
 		}
 
@@ -50,7 +52,7 @@ namespace CoreWiki.Specs.Steps
 		[Given(@"I open the article '(.*)' to edit it")]
 		public void GivenIOpenTheArticle(string topic)
 		{
-			_articleDriver.EditArticle(topic);
+			_articleWebDriver.EditArticle(topic);
 			_currentArticleContext.ArticleTopic = topic;
 		}
 
@@ -58,7 +60,7 @@ namespace CoreWiki.Specs.Steps
 		[When(@"I change the content to")]
 		public void WhenIChangeTheContentTo(string content)
 		{
-			_articleDriver.ChangeText(content);
+			_articleWebDriver.ChangeText(content);
 			_currentArticleContext.LastEnteredContent = content;
 		}
 
@@ -66,7 +68,7 @@ namespace CoreWiki.Specs.Steps
 		[When(@"save it")]
 		public void WhenSaveIt()
 		{
-			_articleDriver.Save();
+			_articleWebDriver.Save();
 		}
 
 		[Then(@"the new article has the content:")]
@@ -86,7 +88,7 @@ namespace CoreWiki.Specs.Steps
 		[Then(@"the new article is available")]
 		public void ThenTheNewArticleIsAvailable()
 		{
-			_articleDriver.AssertIfArticleIfAvailable(_currentArticleContext.ArticleTopic);
+			_articleWebDriver.AssertIfArticleIfAvailable(_currentArticleContext.ArticleTopic);
 
 		}
 
@@ -99,7 +101,7 @@ namespace CoreWiki.Specs.Steps
 		[Then(@"the article with the topic '(.*)' is available")]
 		public void ThenTheArticleWithTheTopicIsAvailable(string topic)
 		{
-			_articleDriver.AssertIfArticleIfAvailable(topic);
+			_articleWebDriver.AssertIfArticleIfAvailable(topic);
 		}
 
 

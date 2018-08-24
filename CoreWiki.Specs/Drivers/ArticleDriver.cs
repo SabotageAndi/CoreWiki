@@ -12,50 +12,25 @@ using OpenQA.Selenium.Support.Extensions;
 
 namespace CoreWiki.Specs.Drivers
 {
-	public class ArticleDriver
+	public class ArticleWebDriver
 	{
-		private readonly ApplicationDbContext _applicationDbContext;
 		private readonly WebDriver _webDriver;
 
-		public ArticleDriver(ApplicationDbContext applicationDbContext, WebDriver webDriver)
+		public ArticleWebDriver(WebDriver webDriver)
 		{
-			_applicationDbContext = applicationDbContext;
 			_webDriver = webDriver;
-		}
-
-		public void CreateArticle(string topic, string content)
-		{
-			var article = new Article()
-			{
-				Topic = topic,
-				Slug = ConvertTopicIntoSlug(topic),
-				Published = Instant.FromDateTimeUtc(DateTime.UtcNow),
-				Content = content
-			};
-
-			var articleHistory = ArticleHistory.FromArticle(article);
-
-			_applicationDbContext.Articles.Add(article);
-			_applicationDbContext.ArticleHistories.Add(articleHistory);
-
-			_applicationDbContext.SaveChanges();
-		}
-
-		private static string ConvertTopicIntoSlug(string topic)
-		{
-			return UrlHelpers.URLFriendly(topic);
 		}
 
 		public void GoToArticle(string topic)
 		{
-			var slug = ConvertTopicIntoSlug(topic);
+			var slug = UrlHelpers.URLFriendly(topic);
 			_webDriver.Current.Navigate().GoToUrl(_webDriver.BaseUrl + "/wiki/" + slug);
 		}
 
 		public void EditArticle(string topic)
 		{
-			var slug = ConvertTopicIntoSlug(topic);
-			_webDriver.Current.Navigate().GoToUrl(_webDriver.BaseUrl + "/"+ slug + "/edit");
+			var slug = UrlHelpers.URLFriendly(topic);
+			_webDriver.Current.Navigate().GoToUrl(_webDriver.BaseUrl + "/" + slug + "/edit");
 		}
 
 		public void ChangeText(string text)
@@ -64,7 +39,7 @@ namespace CoreWiki.Specs.Drivers
 
 			text = text.Replace(Environment.NewLine, "\\n");
 
-			var script = "arguments[0].CodeMirror.setValue(\"" + text+ "\");";
+			var script = "arguments[0].CodeMirror.setValue(\"" + text + "\");";
 			_webDriver.Current.ExecuteJavaScript(script, articleEditPageObjectModel.Content);
 		}
 
@@ -80,14 +55,6 @@ namespace CoreWiki.Specs.Drivers
 				var articleEditPageObjectModel = _webDriver.GetPageModelFromCurrentPage<ArticleEditPageObjectModel>();
 				articleEditPageObjectModel.SaveButton.Click();
 			}
-		}
-
-		public void AssertArticleText(string articleTopic, string lastEnteredContent)
-		{
-			var article = _applicationDbContext.Articles.SingleOrDefault(a => a.Topic == articleTopic);
-			_applicationDbContext.Entry(article).Reload();
-
-			article.Content.Should().Be(lastEnteredContent);
 		}
 
 		public void CreateArticleViaWeb(string topic)
@@ -107,5 +74,46 @@ namespace CoreWiki.Specs.Drivers
 
 			latestChangesPageObjectModel.Cards.Any(c => c.Header.Text == topic).Should().BeTrue();
 		}
+	}
+
+	public class ArticleDriver
+	{
+		private readonly ApplicationDbContext _applicationDbContext;
+		
+
+		public ArticleDriver(ApplicationDbContext applicationDbContext)
+		{
+			_applicationDbContext = applicationDbContext;
+			
+		}
+
+		public void CreateArticle(string topic, string content)
+		{
+			var article = new Article()
+			{
+				Topic = topic,
+				Slug = UrlHelpers.URLFriendly(topic),
+				Published = Instant.FromDateTimeUtc(DateTime.UtcNow),
+				Content = content
+			};
+
+			var articleHistory = ArticleHistory.FromArticle(article);
+
+			_applicationDbContext.Articles.Add(article);
+			_applicationDbContext.ArticleHistories.Add(articleHistory);
+
+			_applicationDbContext.SaveChanges();
+		}
+
+
+		public void AssertArticleText(string articleTopic, string lastEnteredContent)
+		{
+			var article = _applicationDbContext.Articles.SingleOrDefault(a => a.Topic == articleTopic);
+			_applicationDbContext.Entry(article).Reload();
+
+			article.Content.Should().Be(lastEnteredContent);
+		}
+
+		
 	}
 }
