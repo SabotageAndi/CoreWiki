@@ -6,7 +6,7 @@ Background:
 	And an article 'SpecFlow Links' exists
 
 
-Scenario: Change the title of an Article
+Scenario: Change the text of an Article
 
 	Given I open the article 'SpecFlow Links' to edit it
 
@@ -18,11 +18,13 @@ Scenario: Change the title of an Article
 		"""
 	And save it
 
+	Then the new text is saved to the database
+
 
 Scenario: Link two articles
 
 	Given an article 'SpecFlow ToC' exists
-	And I open the article 'SpecFlow ToC'
+	And I open the article 'SpecFlow ToC' to edit it
 
 	When I edit the text
 		"""

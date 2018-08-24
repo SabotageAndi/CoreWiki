@@ -8,10 +8,12 @@ namespace CoreWiki.Specs.Steps
 	public class UserSteps
 	{
 		private readonly UserDriver _userDriver;
+		private readonly LoginDriver _loginDriver;
 
-		public UserSteps(UserDriver userDriver)
+		public UserSteps(UserDriver userDriver, LoginDriver loginDriver)
 		{
 			_userDriver = userDriver;
+			_loginDriver = loginDriver;
 		}
 
 		[Given(@"I am a new user")]
@@ -24,6 +26,7 @@ namespace CoreWiki.Specs.Steps
 		public async Task GivenIHaveTheRole(string roleName)
 		{
 			await _userDriver.CreateCustomUserWithRole(roleName);
+			_loginDriver.LoginWithCredentials(LoginData.CredentialsCustomRoles);
 		}
 
 	}

@@ -38,7 +38,7 @@ namespace CoreWiki.Specs.Support
 				.Build();
 
 			var serverAddressesFeature = _buildWebHost.ServerFeatures.Get<IServerAddressesFeature>();
-			serverAddressesFeature.Addresses.Add("https://localhost:8081");
+			serverAddressesFeature.Addresses.Add(_webDriver.BaseUrl);
 
 
 			_buildWebHost.Start();

@@ -9,7 +9,7 @@ namespace CoreWiki.Specs.PageObjects
 		internal override void Init(WebDriver webDriver)
 		{
 			base.Init(webDriver);
-			Content = webDriver.Current.FindElement(By.ClassName("CodeMirror-lines"));
+			Content = webDriver.Current.FindElement(By.ClassName("CodeMirror"));
 			Topic = webDriver.Current.FindElement(By.Id("Article_Topic"));
 			SaveButton = webDriver.Current.FindElements(By.TagName("button")).SingleOrDefault(we => we.Text == "Save");
 		}

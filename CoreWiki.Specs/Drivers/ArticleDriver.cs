@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Linq;
 using CoreWiki.Data;
 using CoreWiki.Data.Models;
 using CoreWiki.Helpers;
 using CoreWiki.Specs.PageObjects;
+using FluentAssertions;
+using Microsoft.AspNetCore.Identity.UI.Pages.Internal.Account;
 using NodaTime;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.Extensions;
 
 namespace CoreWiki.Specs.Drivers
 {
@@ -55,14 +60,25 @@ namespace CoreWiki.Specs.Drivers
 		public void ChangeText(string text)
 		{
 			var articleEditPageObjectModel = _webDriver.GetPageModelFromCurrentPage<ArticleEditPageObjectModel>();
-			articleEditPageObjectModel.Content.Clear();
-			articleEditPageObjectModel.Content.SendKeys(text);
+
+			text = text.Replace(Environment.NewLine, "\\n");
+
+			var script = "arguments[0].CodeMirror.setValue(\"" + text+ "\");";
+			_webDriver.Current.ExecuteJavaScript(script, articleEditPageObjectModel.Content);
 		}
 
 		public void Save()
 		{
 			var articleEditPageObjectModel = _webDriver.GetPageModelFromCurrentPage<ArticleEditPageObjectModel>();
 			articleEditPageObjectModel.SaveButton.Click();
+		}
+
+		public void AssertArticleText(string articleTopic, string lastEnteredContent)
+		{
+			var article = _applicationDbContext.Articles.SingleOrDefault(a => a.Topic == articleTopic);
+			_applicationDbContext.Entry(article).Reload();
+
+			article.Content.Should().Be(lastEnteredContent);
 		}
 	}
 }
