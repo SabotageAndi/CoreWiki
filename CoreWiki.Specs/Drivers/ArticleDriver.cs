@@ -23,13 +23,14 @@ namespace CoreWiki.Specs.Drivers
 			_webDriver = webDriver;
 		}
 
-		public void CreateArticle(string topic)
+		public void CreateArticle(string topic, string content)
 		{
 			var article = new Article()
 			{
 				Topic = topic,
 				Slug = ConvertTopicIntoSlug(topic),
 				Published = Instant.FromDateTimeUtc(DateTime.UtcNow),
+				Content = content
 			};
 
 			var articleHistory = ArticleHistory.FromArticle(article);
@@ -69,8 +70,16 @@ namespace CoreWiki.Specs.Drivers
 
 		public void Save()
 		{
-			var articleEditPageObjectModel = _webDriver.GetPageModelFromCurrentPage<ArticleEditPageObjectModel>();
-			articleEditPageObjectModel.SaveButton.Click();
+			if (_webDriver.Current.Url.EndsWith("/Create"))
+			{
+				var articleCreatePageObjectModel = _webDriver.GetPageModelFromCurrentPage<ArticleCreatePageObjectModel>();
+				articleCreatePageObjectModel.CreateButton.Click();
+			}
+			else
+			{
+				var articleEditPageObjectModel = _webDriver.GetPageModelFromCurrentPage<ArticleEditPageObjectModel>();
+				articleEditPageObjectModel.SaveButton.Click();
+			}
 		}
 
 		public void AssertArticleText(string articleTopic, string lastEnteredContent)
@@ -79,6 +88,24 @@ namespace CoreWiki.Specs.Drivers
 			_applicationDbContext.Entry(article).Reload();
 
 			article.Content.Should().Be(lastEnteredContent);
+		}
+
+		public void CreateArticleViaWeb(string topic)
+		{
+			_webDriver.Current.Navigate().GoToUrl(_webDriver.BaseUrl + "/Create");
+			var articleEditPageObjectModel = _webDriver.GetPageModelFromCurrentPage<ArticleEditPageObjectModel>();
+
+			articleEditPageObjectModel.Topic.Clear();
+			articleEditPageObjectModel.Topic.SendKeys(topic);
+
+		}
+
+		public void AssertIfArticleIfAvailable(string topic)
+		{
+			_webDriver.Current.Navigate().GoToUrl(_webDriver.BaseUrl + "/Search/LatestChanges");
+			var latestChangesPageObjectModel = _webDriver.GetPageModelFromCurrentPage<LatestChangesPageObjectModel>();
+
+			latestChangesPageObjectModel.Cards.Any(c => c.Header.Text == topic).Should().BeTrue();
 		}
 	}
 }

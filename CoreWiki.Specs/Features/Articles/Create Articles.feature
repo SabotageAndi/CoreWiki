@@ -15,6 +15,7 @@ Scenario: Create Article is after saving available
 Scenario: Find an article by topic
 
 	Given an article with the topic 'SpecFlow Tips & Tricks' was created
+	And save it
 
 	When I look at the list of available topics
 

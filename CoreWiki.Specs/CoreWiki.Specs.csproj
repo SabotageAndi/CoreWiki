@@ -52,6 +52,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Features\Articles\Create Articles.feature">
+      <Generator></Generator>
+    </None>
     <None Update="specflow.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

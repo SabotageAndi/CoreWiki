@@ -1,4 +1,5 @@
-﻿using CoreWiki.Specs.Context;
+﻿using System;
+using CoreWiki.Specs.Context;
 using CoreWiki.Specs.Drivers;
 using TechTalk.SpecFlow;
 
@@ -17,10 +18,34 @@ namespace CoreWiki.Specs.Steps
 		}
 
 		[Given(@"an article '(.*)' exists")]
-		public void GivenAnArticleExists(string title)
+		public void GivenAnArticleExists(string topic)
 		{
-			_articleDriver.CreateArticle(title);
+			_articleDriver.CreateArticle(topic, String.Empty);
+			_currentArticleContext.ArticleTopic = topic;
+
 		}
+
+		[When(@"I create a new article without content")]
+		[When(@"I create a new article")]
+		public void WhenICreateANewArticle()
+		{
+			var topic = Guid.NewGuid().ToString("N");
+			GivenAnArticleWithTheTopicWasCreated(topic);
+		}
+
+		[Given(@"an article with the topic '(.*)' was created")]
+		public void GivenAnArticleWithTheTopicWasCreated(string topic)
+		{
+			_articleDriver.CreateArticleViaWeb(topic);
+			_currentArticleContext.ArticleTopic = topic;
+		}
+
+		[Given(@"I open this article to edit it")]
+		public void GivenIOpenThisArticleToEditIt()
+		{
+			GivenIOpenTheArticle(_currentArticleContext.ArticleTopic);
+		}
+
 
 		[Given(@"I open the article '(.*)' to edit it")]
 		public void GivenIOpenTheArticle(string topic)
@@ -29,25 +54,54 @@ namespace CoreWiki.Specs.Steps
 			_currentArticleContext.ArticleTopic = topic;
 		}
 
-		[When(@"I edit the text")]
-		public void WhenIEditTheText(string text)
+		[When(@"enter the content")]
+		[When(@"I change the content to")]
+		public void WhenIChangeTheContentTo(string content)
 		{
-			_articleDriver.ChangeText(text);
-			_currentArticleContext.LastEnteredContent = text;
+			_articleDriver.ChangeText(content);
+			_currentArticleContext.LastEnteredContent = content;
 		}
 
+		[Given(@"save it")]
 		[When(@"save it")]
 		public void WhenSaveIt()
 		{
 			_articleDriver.Save();
 		}
 
-		[Then(@"the new text is saved to the database")]
-		public void ThenTheNewTextIsSavedToTheDatabase()
+		[Then(@"the new article has the content:")]
+		public void ThenTheNewArticleHasTheContent(string expectedContent)
 		{
-			_articleDriver.AssertArticleText(_currentArticleContext.ArticleTopic,
-				_currentArticleContext.LastEnteredContent);
+			_articleDriver.AssertArticleText(_currentArticleContext.ArticleTopic, expectedContent);
 		}
+
+		[Given(@"an article exists with the content:")]
+		public void GivenAnArticleExistsWithTheContent(string content)
+		{
+			var topic = Guid.NewGuid().ToString("N");
+			_articleDriver.CreateArticle(topic, content);
+			_currentArticleContext.ArticleTopic = topic;
+		}
+
+		[Then(@"the new article is available")]
+		public void ThenTheNewArticleIsAvailable()
+		{
+			_articleDriver.AssertIfArticleIfAvailable(_currentArticleContext.ArticleTopic);
+
+		}
+
+		[When(@"I look at the list of available topics")]
+		public void WhenILookAtTheListOfAvailableTopics()
+		{
+			
+		}
+
+		[Then(@"the article with the topic '(.*)' is available")]
+		public void ThenTheArticleWithTheTopicIsAvailable(string topic)
+		{
+			_articleDriver.AssertIfArticleIfAvailable(topic);
+		}
+
 
 	}
 }
