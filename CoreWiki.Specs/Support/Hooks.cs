@@ -29,8 +29,15 @@ namespace CoreWiki.Specs.Support
 		public void BeforeScenario()
 		{
 			var appDataPath = Path.Combine(Environment.CurrentDirectory, "app_data");
-			Directory.Delete(appDataPath, true);
-			Directory.CreateDirectory(appDataPath);
+			if (Directory.Exists(appDataPath))
+			{
+				Directory.Delete(appDataPath, true);
+			}
+
+			if (!Directory.Exists(appDataPath))
+			{
+				Directory.CreateDirectory(appDataPath);
+			}
 
 
 			_buildWebHost = Program.CreateWebHost(null)
