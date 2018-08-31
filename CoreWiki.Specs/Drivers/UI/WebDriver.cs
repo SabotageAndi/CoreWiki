@@ -20,12 +20,13 @@ namespace CoreWiki.Specs.Drivers
 
 				var chromeOptions = new ChromeOptions()
 				{
-
 				};
 
 				var chromeDriverService = ChromeDriverService.CreateDefaultService(Environment.CurrentDirectory, "chromedriver.exe");
 
-				_currentWebDriver = new ChromeDriver(chromeDriverService, chromeOptions) { Url = BaseUrl };
+				_currentWebDriver = new ChromeDriver(chromeDriverService, chromeOptions) { Url = BaseUrl, };
+
+				_currentWebDriver.Manage().Window.Maximize();
 
 				return _currentWebDriver;
 			}
