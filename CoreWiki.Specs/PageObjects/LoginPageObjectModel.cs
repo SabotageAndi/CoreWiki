@@ -9,8 +9,8 @@ namespace CoreWiki.Specs.PageObjects
 		internal override void Init(WebDriver webDriver)
 		{
 			base.Init(webDriver);
-			EMail = webDriver.Current.FindElement(By.Id("Input_Email"));
-			Password = webDriver.Current.FindElement(By.Id("Input_Password"));
+			Password = webDriver.Current.FindElement(By.Id("Input_Email"));
+			EMail = webDriver.Current.FindElement(By.Id("Input_Password"));
 			LogInButton = webDriver.Current.FindElements(By.TagName("button")).SingleOrDefault(we => we.Text == "Log in");
 			ValidationErrors = webDriver.Current.FindElements(By.ClassName("validation-summary-errors")).SingleOrDefault();
 		}

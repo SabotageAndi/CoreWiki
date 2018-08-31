@@ -1,6 +1,7 @@
 ﻿using System;
 using CoreWiki.Specs.Context;
 using CoreWiki.Specs.Drivers;
+using CoreWiki.Specs.Drivers.UI;
 using TechTalk.SpecFlow;
 
 namespace CoreWiki.Specs.Steps
@@ -68,7 +69,6 @@ namespace CoreWiki.Specs.Steps
 		[When(@"save it")]
 		public void WhenSaveIt()
 		{
-			_articleWebDriver.Save();
 		}
 
 		[Then(@"the new article has the content:")]
@@ -97,13 +97,5 @@ namespace CoreWiki.Specs.Steps
 		{
 			
 		}
-
-		[Then(@"the article with the topic '(.*)' is available")]
-		public void ThenTheArticleWithTheTopicIsAvailable(string topic)
-		{
-			_articleWebDriver.AssertIfArticleIfAvailable(topic);
-		}
-
-
 	}
 }
