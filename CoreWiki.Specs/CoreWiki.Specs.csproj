@@ -1,64 +1,113 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+	<Import Project="$(MSBuildThisFileDirectory)..\..\..\NuGetPackages\SpecRun.Runner\build\SpecRun.Runner.props" />
 
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netcoreapp2.1</TargetFramework>
 
-  <ItemGroup>
-    <None Remove="appsettings.Development.json" />
-    <None Remove="appsettings.json" />
-    <None Remove="launchSettings.json" />
-    <None Remove="web.config" />
-  </ItemGroup>
+		<IsPackable>false</IsPackable>
+		<SpecFlow_DeleteCodeBehindFilesOnCleanRebuild>true</SpecFlow_DeleteCodeBehindFilesOnCleanRebuild>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Content Include="appsettings.Development.json">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="appsettings.json">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="web.config">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="appsettings.Development.json" />
+		<None Remove="appsettings.json" />
+		<None Remove="launchSettings.json" />
+		<None Remove="web.config" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="5.4.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.0" />
-    <PackageReference Include="Selenium.Support" Version="3.14.0" />
-    <PackageReference Include="Selenium.WebDriver" Version="3.14.0" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="2.41.0" />
-    <PackageReference Include="SpecFlow" Version="3.0.213" />
-    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.0.213" />
-    <PackageReference Include="SpecRun.SpecFlow.3-0-0" Version="3.0.344" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
-    <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+	<ItemGroup>
+		<Content Include="appsettings.Development.json">
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+		<Content Include="appsettings.json">
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="web.config">
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CoreWiki.Core\CoreWiki.Core.csproj" />
-    <ProjectReference Include="..\CoreWiki.Data\CoreWiki.Data.csproj" />
-    <ProjectReference Include="..\CoreWiki\CoreWiki.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="FluentAssertions" Version="5.4.1" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.0" />
+		<PackageReference Include="Selenium.Support" Version="3.14.0" />
+		<PackageReference Include="Selenium.WebDriver" Version="3.14.0" />
+		<PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="2.41.0" />
+		<PackageReference Include="SpecFlow" Version="3.0.213" />
+		<PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.0.213" />
 
-  <ItemGroup>
-    <None Update="specflow.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
+		<PackageReference Include="xunit" Version="2.4.1" />
 
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+		
+		<PackageReference Include="FSharp.Core" Version="4.3.4" />
+		<PackageReference Include="BoDi" Version="1.4.1" />
+		<PackageReference Include="StreamJsonRpc" Version="1.4.128" />
 
-  
+		<ProjectReference Include="..\..\..\SpecFlowPlugins\TechTalk.SpecRun.SpecFlowPlugin.Runtime.3-0-0\TechTalk.SpecRun.SpecFlowPlugin.Runtime.3-0-0.csproj" />
+		<ProjectReference Include="..\..\..\TechTalk.SpecRun\TechTalk.SpecRun.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\CoreWiki.Core\CoreWiki.Core.csproj" />
+		<ProjectReference Include="..\CoreWiki.Data\CoreWiki.Data.csproj" />
+		<ProjectReference Include="..\CoreWiki\CoreWiki.csproj" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<_SpecFlow_GeneratorPluginPath>$(MSBuildThisFileDirectory)..\..\..\SpecFlowPlugins\TechTalk.SpecRun.SpecFlowPlugin.Generator.3-0-0\bin\$(Configuration)\$(SpecRun_FullFramework_Generator_TFM)\SpecRun.Generator.SpecFlowPlugin.dll</_SpecFlow_GeneratorPluginPath>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<_SpecFlowPlusRunner_TestAdapterFiles>$(SolutionDir)\VisualStudio\TechTalk.SpecRun.VisualStudio.TestAdapter\bin\$(Configuration)\</_SpecFlowPlusRunner_TestAdapterFiles>
+		<_SpecFlowPlusRunner_TestAdapterFramework>netcoreapp2.1</_SpecFlowPlusRunner_TestAdapterFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<SpecFlowGeneratorPlugins Include="$(_SpecFlow_GeneratorPluginPath)" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<None Update="specflow.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Properties\" />
+	</ItemGroup>
+
+	<Target Name="BuildDependencies" BeforeTargets="PreBuildEvent;BeforeUpdateFeatureFilesInProject" AfterTargets="PreBuild">
+		<MSBuild Projects="..\..\..\SpecFlowPlugins\TechTalk.SpecRun.SpecFlowPlugin.Generator.3-0-0\TechTalk.SpecRun.SpecFlowPlugin.Generator.3-0-0.csproj" />
+	</Target>
+
+	<Import Project="$(MSBuildThisFileDirectory)..\..\..\NuGetPackages\SpecRun.Runner\build\SpecRun.Runner.targets" />
+
+	<Target Name="CopyNetCoreDlls" BeforeTargets="PreBuildEvent" AfterTargets="PreBuild">
+
+		<PropertyGroup>
+			<AnyCPUNetCoreDllsFolder>$(SolutionDir)TechTalk.SpecRun.Framework.Executors\TechTalk.SpecRun.Framework.Executor.anycpu.netcoreapp2_1\bin\Debug\netcoreapp2.1\</AnyCPUNetCoreDllsFolder>
+			<x86NetCoreDllsFolder>$(SolutionDir)TechTalk.SpecRun.Framework.Executors\TechTalk.SpecRun.Framework.Executor.x86.netcoreapp2_1\bin\Debug\netcoreapp2.1\</x86NetCoreDllsFolder>
+		</PropertyGroup>
+
+		<ItemGroup>
+
+			<NetCoreFiles Include="$(x86NetCoreDllsFolder)*.json" />
+			<NetCoreFiles Include="$(x86NetCoreDllsFolder)*.config" />
+			<NetCoreFiles Include="$(x86NetCoreDllsFolder)*.dll" />
+
+			<NetCoreFiles Include="$(AnyCPUNetCoreDllsFolder)*.json" />
+			<NetCoreFiles Include="$(AnyCPUNetCoreDllsFolder)*.config" />
+			<NetCoreFiles Include="$(AnyCPUNetCoreDllsFolder)*.dll" />
+
+		</ItemGroup>
+		<Copy SourceFiles="@(NetCoreFiles)" DestinationFolder="$(OutputPath)SpecFlowPlusRunner\netcoreapp2.1\" ContinueOnError="true" />
+	</Target>
+
+
 </Project>

@@ -8,6 +8,7 @@ using CoreWiki.Data;
 using CoreWiki.Data.Security;
 using Microsoft.Extensions.DependencyInjection;
 using TechTalk.SpecFlow;
+using TechTalk.SpecRun;
 
 namespace CoreWiki.Specs.Support
 {
@@ -17,12 +18,14 @@ namespace CoreWiki.Specs.Support
 		private static IWebHost _buildWebHost;
 		private readonly WebDriver _webDriver;
 		private readonly ScenarioContext _scenarioContext;
+		private readonly TestRunContext _testRunContext;
 		private IServiceScope _serviceScope;
 
-		public Hooks(WebDriver webDriver, ScenarioContext scenarioContext)
+		public Hooks(WebDriver webDriver, ScenarioContext scenarioContext, TestRunContext testRunContext)
 		{
 			_webDriver = webDriver;
 			_scenarioContext = scenarioContext;
+			_testRunContext = testRunContext;
 		}
 
 		[BeforeScenario()]
@@ -40,7 +43,7 @@ namespace CoreWiki.Specs.Support
 			}
 
 
-			var contentRoot = Path.Combine(Environment.CurrentDirectory, "..", "CoreWiki");
+			var contentRoot = Path.Combine(_testRunContext.TestDirectory, "..", "..", "..", "..", "..", "..", "CoreWiki");
 			_buildWebHost = Program.CreateWebHost(null)
 				.UseContentRoot(contentRoot)
 				.Build();
