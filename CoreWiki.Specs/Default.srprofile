@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestProfile xmlns="http://www.specflow.org/schemas/plus/TestProfile/1.5">
+  <Settings projectName="CoreWiki.Specs" />
+  <Execution stopAfterFailures="3" testThreadCount="1" testSchedulingMode="Sequential" />
+  
+  <TestAssemblyPaths>
+    <TestAssemblyPath>CoreWiki.Specs.dll</TestAssemblyPath>
+  </TestAssemblyPaths>
+  
+</TestProfile>

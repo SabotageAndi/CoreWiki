@@ -40,8 +40,9 @@ namespace CoreWiki.Specs.Support
 			}
 
 
+			var contentRoot = Path.Combine(Environment.CurrentDirectory, "..", "CoreWiki");
 			_buildWebHost = Program.CreateWebHost(null)
-				.UseContentRoot(Path.Combine(Environment.CurrentDirectory, "..", "..", "..", "..", "CoreWiki"))
+				.UseContentRoot(contentRoot)
 				.Build();
 
 			var serverAddressesFeature = _buildWebHost.ServerFeatures.Get<IServerAddressesFeature>();
