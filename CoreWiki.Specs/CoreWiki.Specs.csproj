@@ -28,18 +28,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BoDi" Version="1.4.0-alpha1" />
     <PackageReference Include="FluentAssertions" Version="5.4.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.0" />
     <PackageReference Include="Selenium.Support" Version="3.14.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.14.0" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="2.41.0" />
-    <PackageReference Include="SpecFlow" Version="3.0.55-beta-g937c8571f0" />
-    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.0.55-beta-g937c8571f0" />
-    <PackageReference Include="SpecFlow.xUnit" Version="3.0.55-beta-g937c8571f0" />
+    <PackageReference Include="SpecFlow" Version="3.0.213" />
+    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.0.213" />
+    <PackageReference Include="SpecFlow.xUnit" Version="3.0.213" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
-    <PackageReference Include="xunit" Version="2.4.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0">
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
@@ -52,9 +51,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Features\Articles\Create Articles.feature">
-      <Generator></Generator>
-    </None>
     <None Update="specflow.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -64,4 +60,5 @@
     <Folder Include="Properties\" />
   </ItemGroup>
 
+  
 </Project>
