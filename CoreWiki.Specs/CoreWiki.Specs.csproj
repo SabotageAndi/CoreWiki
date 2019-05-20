@@ -7,7 +7,6 @@
 
 		<IsPackable>false</IsPackable>
 		<SpecFlow_DeleteCodeBehindFilesOnCleanRebuild>true</SpecFlow_DeleteCodeBehindFilesOnCleanRebuild>
-		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -73,6 +72,9 @@
 
 
 	<ItemGroup>
+		<None Update="Default.srprofile">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="specflow.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
