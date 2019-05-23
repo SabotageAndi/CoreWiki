@@ -4,12 +4,19 @@ using CoreWiki.Specs.PageObjects;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
+using TechTalk.SpecRun;
 
 namespace CoreWiki.Specs.Drivers
 {
 	public class WebDriver
 	{
+		private readonly TestRunContext _testRunContext;
 		private IWebDriver _currentWebDriver;
+
+		public WebDriver(TestRunContext testRunContext)
+		{
+			_testRunContext = testRunContext;
+		}
 
 		public IWebDriver Current
 		{
@@ -23,7 +30,7 @@ namespace CoreWiki.Specs.Drivers
 
 				};
 
-				var chromeDriverService = ChromeDriverService.CreateDefaultService(Environment.CurrentDirectory, "chromedriver.exe");
+				var chromeDriverService = ChromeDriverService.CreateDefaultService(Path.Combine(_testRunContext.TestDirectory, "..", ".."), "chromedriver.exe");
 
 				_currentWebDriver = new ChromeDriver(chromeDriverService, chromeOptions) { Url = BaseUrl };
 
