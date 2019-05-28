@@ -3,7 +3,7 @@
 	<Import Project="$(MSBuildThisFileDirectory)..\..\..\NuGetPackages\SpecRun.Runner\build\SpecRun.Runner.props" />
 
 	<PropertyGroup>
-		<TargetFramework>netcoreapp2.1</TargetFramework>
+		<TargetFramework>netcoreapp2.2</TargetFramework>
 
 		<IsPackable>false</IsPackable>
 		<SpecFlow_DeleteCodeBehindFilesOnCleanRebuild>true</SpecFlow_DeleteCodeBehindFilesOnCleanRebuild>
@@ -63,7 +63,7 @@
 
 	<PropertyGroup>
 		<_SpecFlowPlusRunner_TestAdapterFiles>$(SolutionDir)\VisualStudio\TechTalk.SpecRun.VisualStudio.TestAdapter\bin\$(Configuration)\</_SpecFlowPlusRunner_TestAdapterFiles>
-		<_SpecFlowPlusRunner_TestAdapterFramework>netcoreapp2.1</_SpecFlowPlusRunner_TestAdapterFramework>
+		<_SpecFlowPlusRunner_TestAdapterFramework>netcoreapp2.2</_SpecFlowPlusRunner_TestAdapterFramework>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -93,8 +93,8 @@
 	<Target Name="CopyNetCoreDlls" BeforeTargets="PreBuildEvent" AfterTargets="PreBuild">
 
 		<PropertyGroup>
-			<AnyCPUNetCoreDllsFolder>$(SolutionDir)TechTalk.SpecRun.Framework.Executors\TechTalk.SpecRun.Framework.Executor.anycpu.netcoreapp2_1\bin\Debug\netcoreapp2.1\</AnyCPUNetCoreDllsFolder>
-			<x86NetCoreDllsFolder>$(SolutionDir)TechTalk.SpecRun.Framework.Executors\TechTalk.SpecRun.Framework.Executor.x86.netcoreapp2_1\bin\Debug\netcoreapp2.1\</x86NetCoreDllsFolder>
+			<AnyCPUNetCoreDllsFolder>$(SolutionDir)TechTalk.SpecRun.Framework.Executors\TechTalk.SpecRun.Framework.Executor.anycpu.netcoreapp2_2\bin\Debug\netcoreapp2.2\</AnyCPUNetCoreDllsFolder>
+			<x86NetCoreDllsFolder>$(SolutionDir)TechTalk.SpecRun.Framework.Executors\TechTalk.SpecRun.Framework.Executor.x86.netcoreapp2_2\bin\Debug\netcoreapp2.2\</x86NetCoreDllsFolder>
 		</PropertyGroup>
 
 		<ItemGroup>
@@ -108,7 +108,7 @@
 			<NetCoreFiles Include="$(AnyCPUNetCoreDllsFolder)*.dll" />
 
 		</ItemGroup>
-		<Copy SourceFiles="@(NetCoreFiles)" DestinationFolder="$(OutputPath)SpecFlowPlusRunner\netcoreapp2.1\" ContinueOnError="true" />
+		<Copy SourceFiles="@(NetCoreFiles)" DestinationFolder="$(OutputPath)SpecFlowPlusRunner\netcoreapp2.2\" ContinueOnError="true" />
 	</Target>
 
 
