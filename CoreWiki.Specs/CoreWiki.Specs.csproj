@@ -36,8 +36,8 @@
 		<PackageReference Include="Selenium.Support" Version="3.14.0" />
 		<PackageReference Include="Selenium.WebDriver" Version="3.14.0" />
 		<PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="2.41.0" />
-		<PackageReference Include="SpecFlow" Version="3.0.213" />
-		<PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.0.213" />
+		<PackageReference Include="SpecFlow" Version="3.0.220" />
+		<PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.0.220" />
 
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
 		<PackageReference Include="xunit" Version="2.4.1" />
@@ -83,6 +83,7 @@
 	<ItemGroup>
 		<Folder Include="Properties\" />
 	</ItemGroup>
+
 
 	<Target Name="BuildDependencies" BeforeTargets="PreBuildEvent;BeforeUpdateFeatureFilesInProject" AfterTargets="PreBuild">
 		<MSBuild Projects="..\..\..\SpecFlowPlugins\TechTalk.SpecRun.SpecFlowPlugin.Generator.3-0-0\TechTalk.SpecRun.SpecFlowPlugin.Generator.3-0-0.csproj" />
